@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Not Found</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.indigo-pink.min.css"/>
+    <script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body bgcolor="#DBDBDB">
+
+    <div class="mdl-card mdl-shadow--2dp" style="width: 80%; margin: auto;">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text" style="">404!</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            I'm not sure where you were trying to go, but we couldn't find it. Sorry. :(
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+          <a href="{% url 'web_store:index' %}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Store Home</a>
+        </div>
+    </div>
+
+</body>
+</html>

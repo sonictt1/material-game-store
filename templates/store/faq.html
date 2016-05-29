@@ -1,0 +1,67 @@
+<!doctype html>
+<head>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.indigo-pink.min.css"/>
+    <link rel="stylesheet" href="{% static "styles/styles.css" %}"/>
+    <script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ</title>
+    <link rel="icon" type="image/vnd.microsoft.icon"
+     href="{% static "favicon.ico" %}" />
+</head>
+<body bgcolor="#DBDBDB">
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">Privacy Policy & FAQ</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+{#        <a class="mdl-navigation__link" href="">Link</a>#}
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Tyler's Game Store</span>
+    <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/"><i class="material-icons nav_drawer_icon" style="display: inline;">home</i>Home</a>
+          <a class="mdl-navigation__link" href="/store"><i class="material-icons nav_drawer_icon" style="display: inline;">store</i>Store Home</a>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+  <div class="mdl-card mdl-shadow--2dp game-detail-card"
+  style="margin: 20px auto 20px auto; width: 80%;">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Privacy Policy</h2>
+        </div>
+         <div class="mdl-card__supporting-text">
+          When you purchase a key I take your email address for future reference (in case you need me to
+             look up past keys you have purchased). Other than that I save no information. Payment processing
+             is handled by <a href="https://stripe.com/">Stripe</a>. This website never actually sees your payment
+             information. Stripe handles all of that and lets me know if the payment went through. <b>I do reserve
+             the right to add analytics to my site in order to decide how to focus my efforts for future development.
+             If this happens I will update this policy accordingly.</b><br><br>
+          Your information is encrypted in my server and my server is protected by secure development practices.
+             Even if an attacker gained access to my database they'd have to decrypt your email address in order to get
+             it, which would take a ludicrous amount of time. Traffic to and from this site is secured with SSL encryption.
+             This prevents an attacker from stealing your information en-route to my server or en-route to
+             Stripe's server.
+        </div>
+  </div>
+    <h3 style="margin-left: 10%;">Store FAQ</h3>
+    {%  for faq in faq_list %}
+     <div class="mdl-card mdl-shadow--2dp game-detail-card" style="margin: 20px auto 20px auto; width: 80%;">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">{{ faq.question }}</h2>
+        </div>
+         <div class="mdl-card__supporting-text">
+          {{ faq.answer|linebreaks }}
+        </div>
+     </div>
+    {% endfor %}
+  </main>
+</div>
+</body>

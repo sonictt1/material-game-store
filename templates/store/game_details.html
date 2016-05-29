@@ -1,0 +1,137 @@
+<!doctype html>
+<head>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.indigo-pink.min.css"/>
+    <link rel="stylesheet" href="{% static "styles/styles.css" %}"/>
+    <script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
+    <script src="jquery-1.12.2.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/vnd.microsoft.icon"
+     href="{% static "favicon.ico" %}" />
+    <title>{{ game_title }}</title>
+</head>
+{% with "game_img/"|add:game_image as img %}
+{% if 'javascript' in game_image %}
+    <body bgcolor="#DBDBDB">
+{% else %}
+    <body style="background-image: url({% static img %});">
+{% endif %}
+{% endwith %}
+
+    <div class="demo-layout-transparent mdl-layout mdl-js-layout" style="">
+      <header class="mdl-layout__header mdl-layout__header--transparent">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title" style="color: white;"></span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <nav class="mdl-navigation">
+{#            <a class="mdl-navigation__link" href="">Link</a>#}
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">{{ game_title }}</span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/"><i class="material-icons nav_drawer_icon" style="display: inline;">home</i>Home</a>
+          <a class="mdl-navigation__link" href="/store"><i class="material-icons nav_drawer_icon" style="display: inline;">store</i>Store Home</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content" style="">
+          <div class="mdl-card mdl-shadow--2dp game-detail-card">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">{{ game_title }}</h2>
+        </div>
+        <div class="mdl-card__supporting-text">{{ game_description|linebreaks }}</div>
+        <div class="mdl-card__actions mdl-card--border">
+              <a href="#openModal" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Purchase Key - {{ game_price }}</a>
+        </div>
+    </div>
+
+    <div id="openModal" class="modalDialog">
+        <div class="mdl-card mdl-shadow--10dp">
+            <a style="position: absolute; right: 0; top: 0; margin-top: 3px; margin-right: 3px;" href="#close">
+                    <i class="material-icons">close</i></a>
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Purchase Key</h2>
+            </div>
+            <div class="mdl-card__supporting-text"><b>Keys are only guaranteed to work in the US region.</b></div>
+            <form id="checkout" method="post" action="checkout/" style="padding: 16px;">{% csrf_token %}
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect center_horizontal" for="steam">
+                  <input type="radio" id="steam" class="mdl-radio__button" name="drm" value="steam"
+                         {% if game_with_keys.has_steam %}
+                         checked="checked"
+                         {% else %}
+                         disabled="disabled"
+                         {% endif %}required/>
+                  <span class="mdl-radio__label">Steam</span>
+                </label><br>
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect center_horizontal" for="origin">
+                  <input type="radio" id="origin" class="mdl-radio__button" name="drm" value="origin"
+                         {% if game_with_keys.has_origin %}
+                         checked="checked"
+                         {% else %}
+                         disabled="disabled"
+                         {% endif %}required/>
+                  <span class="mdl-radio__label">Origin</span>
+                </label><br>
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect center_horizontal" for="uplay">
+                  <input type="radio" id="uplay" class="mdl-radio__button" name="drm" value="uplay"
+                         {% if game_with_keys.has_uplay %}
+                         checked="checked"
+                         {% else %}
+                         disabled="disabled"
+                         {% endif %}required/>
+                  <span class="mdl-radio__label">UPlay</span>
+                </label><br><br>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="email-list">
+                  <input type="checkbox" id="email-list" name="email-list" class="mdl-checkbox__input">
+                  <span class="mdl-checkbox__label">Notify me of new keys via Email</span>
+                </label><br><br>
+
+                <input
+                      type="submit"
+                      class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                      value="Purchase - {{ game_price }}"
+                      data-key="pk_test_esYpdm56QsBE1f41MLlBdkrp"
+                      data-amount="{{ game_price_num_int }}"
+                      data-currency="usd"
+                      data-name="{{ game_title }}"
+                      data-description="Key for {{ game_title }}"
+                      data-bitcoin="true"
+                      data-billing-address="true"
+                  />
+
+                  <script src="https://checkout.stripe.com/v2/checkout.js"></script>
+                  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+                  <script>
+                  $(document).ready(function() {
+
+                      $(':submit').on('click', function(event) {
+                          event.preventDefault();
+                          var $button = $(this),
+                                  $form = $button.parents('form');
+                          var opts = $.extend({}, $button.data(), {
+                              token: function (result) {
+                                  $form.append($('<input>').attr({
+                                      type: 'hidden',
+                                      name: 'stripeToken',
+                                      value: result.id
+                                  })).submit();
+                              }
+                          });
+                          StripeCheckout.open(opts);
+                      });
+                  });
+                  </script>
+
+
+            </form>
+        </div>
+    </div>
+
+      </main>
+    </div>
+</body>

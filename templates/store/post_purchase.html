@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.indigo-pink.min.css"/>
+    <link rel="stylesheet" href="{% static "styles/styles.css" %}">
+    <script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/vnd.microsoft.icon"
+     href="{% static "favicon.ico" %}" />
+    {% if transaction_status %}
+    <title>Success!</title>
+    {% else %}
+    <title>Failed</title>
+    {% endif %}
+</head>
+<body bgcolor="#DBDBDB">
+<!-- Always shows a header, even in smaller screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">Checkout</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+{#        <a class="mdl-navigation__link" href="">Link</a>#}
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Tyler's Game Store</span>
+    <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/"><i class="material-icons nav_drawer_icon" style="display: inline;">home</i>Home</a>
+          <a class="mdl-navigation__link" href="/store"><i class="material-icons nav_drawer_icon" style="display: inline;">store</i>Store Home</a>
+    </nav>
+  </div>
+  <main class="mdl-layout__content" >
+    <div class="page-content">
+        {% if transaction_status and email < 1 %}
+        <h3 style="margin-left: 5%;">Email Failed!</h3>
+        <div class="mdl-card mdl-shadow--2dp" style="width: 80%; margin: auto;">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text" style="">Code Below</h2>
+            </div>
+            <div class="mdl-card__supporting-text">Our email service couldn't deliver the email with your game code.
+            Your code is below. Please use it immediately or store it somewhere safe.</div>
+            <div class="mdl-card__supporting-text">Your code: <b>{{ code }}</b>
+                {% if drm == 'steam' %}
+                <img src="{% static "drm_img/steam.png" %}"
+                style="margin: 0 5px;" height="20px" width="20px">Steam</div>
+            {% elif drm == 'origin' %}
+                <img src="{% static "drm_img/origin.png" %}"
+                style="margin: 0 5px;" height="20px" width="20px">Origin</div>
+            {% elif drm == 'uplay' %}
+                <img src="{% static "drm_img/uplay.png" %}"
+                style="margin: 0 5px;" height="20px" width="20px">Uplay
+            {% endif %}
+            <div class="mdl-card__supporting-text">We tried sending to the email you provided: {{ attempted_email }}</div>
+            <div class="mdl-card__actions mdl-card--border">
+                  <a href="../.." class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Store Home</a>
+            </div>
+            </div>
+        </div>
+        {% elif transaction_status %}
+        <h3 style="margin-left: 5%;">Success!</h3>
+        <div class="mdl-card mdl-shadow--2dp" style="height: 10%; width: 80%; margin: auto;">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text" style="">Check Your Email</h2>
+            </div>
+            <div class="mdl-card__supporting-text">Our email may have ended up in your junk/spam folder.
+            {% if game.has_steam %}
+                <div style="float: left; display: inline-block; width: 20%;" class="mdl-card__supporting-text">
+                <img src="{% static "drm_img/steam.png" %}"
+                style="margin: 0 5px;" height="20px" width="20px">Steam</div>
+            {% elif game.has_origin %}
+                <div style="float: left; display: inline-block; width: 20%;" class="mdl-card__supporting-text">
+                <img src="{% static "drm_img/origin.png" %}"
+                style="margin: 0 5px;" height="20px" width="20px">Origin</div>
+            {% elif game.has_uplay %}
+                <div style="float: left; display: inline-block; width: 20%;" class="mdl-card__supporting-text">
+                <img src="{% static "drm_img/uplay.png" %}"
+                style="margin: 0 5px;" height="20px" width="20px">Uplay</div>
+            {% endif %}</div>
+            <div class="mdl-card__actions mdl-card--border" style="">
+                  <a href="../.." class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Store Home</a>
+            </div>
+        </div>
+        {% else %}
+        <h3 style="margin-left: 5%;">Failure!</h3>
+
+        <div class="mdl-card mdl-shadow--2dp" style="width: 80%; margin: auto;">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text" style="">Error</h2>
+            </div>
+            <div class="mdl-card__supporting-text">Our payment processor has detected the following error(s):</div>
+            <div class="mdl-card__supporting-text">{{ errors|linebreaks }}</div>
+            <div class="mdl-card__actions mdl-card--border">
+                  <a href="../.." class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Store Home</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+  </main>
+
+</body>
+</html>

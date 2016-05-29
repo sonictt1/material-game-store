@@ -1,0 +1,207 @@
+.modalDialog {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 99998;
+	opacity:0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+	overflow: scroll;
+}
+
+.responsive-text-field {
+	margin: auto auto auto 16px;
+	width: 90%;
+}
+
+.center_horizontal{
+	margin:auto;
+}
+
+.email-card {
+	margin: auto;
+	width: 80%;
+	margin-bottom: 32px;
+}
+
+.modalDialog:target {
+	opacity:1;
+	pointer-events: auto;
+}
+
+.modalDialog > div {
+	width: 60%;
+	margin: 10% auto;
+	position: relative;
+}
+
+.close {
+	background: #606061;
+	color: #FFFFFF;
+	line-height: 25px;
+	position: absolute;
+	right: -12px;
+	text-align: center;
+	top: -10px;
+	width: 24px;
+	text-decoration: none;
+	font-weight: bold;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	-moz-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 3px #000;
+	box-shadow: 1px 1px 3px #000;
+	overflow: visible;
+}
+
+.close:hover { background: #00d9ff; }
+
+#payment-form {
+	margin: 5px auto auto 5px;
+}
+
+.demo-layout-transparent {
+
+}
+.demo-layout-transparent .mdl-layout__header,
+.demo-layout-transparent .mdl-layout__drawer-button {
+  /* This background is dark, so we set text to white. Use 87% black instead if
+     your background is light. */
+  color: white;
+}
+
+.md-light {
+	color: rgba(255, 255, 255, 1);
+}
+
+.nav_drawer_icon {
+	margin-bottom: 15px;
+	margin-right: 5px;
+}
+
+.nav_drawer_item {
+	display: inline-block;
+}
+
+.game-card--text {
+	text-shadow: 2px 2px #5a5c5c;
+	position: relative;
+	padding-bottom: 12%;
+}
+
+.game-card {
+	height: 290px;
+	width: 80%;
+	margin: 0% auto 8% auto;
+	position: relative;
+	overflow: visible;
+}
+
+.game-detail-card {
+	margin: 20px auto 20px auto;
+	width: 80%
+}
+
+.drm_icons {
+	height: 5px;
+}
+
+.responsive-title {
+	display: none;
+}
+
+.responsive-actionbar-button {
+	display: none;
+}
+
+.privacy-policy-nav-drawer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+@media only screen and (min-width: 375px) {
+	.game-card {
+		height: auto;
+		width: 80%;
+		margin: 0% auto 8% auto;
+		position: relative;
+		overflow: visible;
+	}
+
+	.game-card--text {
+		text-shadow: 2px 2px #5a5c5c;
+		padding-bottom: inherit;
+		padding-top: 12%;
+	}
+
+	.drm_icons {
+		height: 5px;
+	}
+
+	.responsive-actionbar-button {
+		display: inherit;
+	}
+
+	.privacy-policy-nav-drawer {
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 525px) {
+	.responsive-title {
+		display: inherit;
+	}
+
+	.responsive-text-field {
+		width: 93%;
+	}
+}
+
+@media only screen and (min-width: 800px) {
+	.game-card {
+		height: auto;
+		width: 45%;
+		display: inline-block;
+		margin: 0 auto 5% 3.25%;
+		position: relative;
+		overflow: visible;
+		padding-bottom: 5px;
+	}
+
+	.game-card--text {
+		text-shadow: 2px 2px #5a5c5c;
+		padding-bottom: inherit;
+		margin-top: 12%
+	}
+
+	.drm_icons {
+		height: 5px;
+	}
+
+	.responsive-text-field {
+		width: 95%;
+	}
+
+	.email-card {
+		width: 94%;
+	}
+}
+
+@media only screen and (min-width: 1100px) {
+	.game-card {
+		height: auto;
+		width: 29%;
+		display: inline-block;
+		margin: 0 auto 5% 3.25%;
+		position: relative;
+		overflow: visible;
+		padding-bottom: 5px;
+	}
+}
