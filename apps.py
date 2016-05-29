@@ -19,5 +19,6 @@ from django.apps import AppConfig
 # specific language governing permissions and limitations
 # under the License.
 
-class WebStoreConfig(AppConfig):
-    name = 'web_store'
+
+class MaterialGameStoreConfig(AppConfig):
+    name = 'material_game_store'
