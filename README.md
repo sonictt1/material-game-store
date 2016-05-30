@@ -25,6 +25,7 @@ You'll need the following set up for this app to work.
 - [Keyczar for Python](https://github.com/google/keyczar) - [Instructions for Django](http://gpiot.com/blog/encrypted-fields-pythondjango-keyczar/)
 - [Django Email (django.core.email)](https://docs.djangoproject.com/en/1.9/topics/email/)
 - [Stripe Checkout](https://stripe.com/checkout) - Server API installable with `pip install stripe` or `easy_install stripe` - [More info about the Stripe API here](https://stripe.com/docs/libraries)
+- [An SQL database that can use `SELECT FOR UPDATE`](https://docs.djangoproject.com/en/1.9/ref/models/querysets/#select_for_update) - [I recommend PostgreSQL](https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-14-04)
 
 
 ## To Install
