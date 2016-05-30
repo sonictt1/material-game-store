@@ -2,7 +2,7 @@
 
 A material design Django 1.9 app sell extra/duplicate keys from bundle deals. Please read the ToS on the sites where the keys originated before selling, unless you live in a jurisdiction where selling pre-owned software in protected by law. *Somes sites prohibit the resale of game keys.*
 
-Uses the Apache 2.0 open source license.
+[Provided under the Apache 2.0 license](https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)).
 
 ## Features
 
@@ -12,6 +12,8 @@ Uses the Apache 2.0 open source license.
 - Material Design
 - Responsive (tested on screens down to iPhone 5s size)
 - Integrates into your already-existing Django website.
+- Games are searchable and may be filtered by service ([Steam](http://store.steampowered.com/), [Origin](https://www.origin.com/en-us/store/), and [UPlay](https://uplay.ubi.com/#!/en-US/))
+- Comes with some images for games.
 
 ## Prerequisites
  
@@ -29,6 +31,15 @@ You'll need the following set up for this app to work.
 
 After all of the prerequisites have been installed and configured, clone the repo into your Django project.
 Add `material_game_store.apps.MaterialGameStoreConfig` to your `INSTALLED APPS`, then run `makemigrations` and `migrate` on your `manage.py`.
+
+After installation you'll want to create a file in the app root named `secret_data.py` and put your Stripe keys in there. `STRIPE_KEY_SECRET` and `STRIPE_KEY_PUBLISHABLE` for your secret and publishable keys, respectively. Test keys should be used for development and production keys on your server. If done correctly, Stripe should work after this is done.
+
+## Add Keys for Sale
+
+- First, find an image for the game you want to sell and put it in `static/game_img/` directory (remember the file name and don't forget to `python manage.py collectstatic`)
+- Second, add the game your key is for in Django's admin panel (Game object, you'll put that file name from step one here).
+- Last, add the key for the game in the first step in the admin panel (Key object, leave `claimed` unchecked and `claimed_by` blank).
+- It should now be visible on your store's front page.
 
 ## Demo
 
