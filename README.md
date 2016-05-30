@@ -1,6 +1,6 @@
 # material_game_store
 
-A material design Django 1.9 app sell extra/duplicate keys from bundle deals. Please read the ToS on the sites where the keys originated before selling, unless you live in a jurisdiction where selling pre-owned software in protected by law. *Somes sites prohibit the resale of game keys.*
+A material design Django 1.9 app sell extra/duplicate keys from bundle deals. Please read the ToS on the sites where the keys originated before selling, unless you live in a jurisdiction where selling pre-owned software in protected by law. *Some sites prohibit the resale of game keys.*
 
 [Provided under the Apache 2.0 license](https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)).
 
