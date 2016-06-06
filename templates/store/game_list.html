@@ -172,11 +172,11 @@
 <script>
 if ('serviceWorker' in navigator) {
  console.log('Service Worker is supported');
- navigator.serviceWorker.register('{% static js/push_notifications.js %}').then(function(reg) {
+ navigator.serviceWorker.register('{% static "js/push_notifications.js" %}').then(function(reg) {
    console.log(':^)', reg);
    if ('serviceWorker' in navigator) {
     console.log('Service Worker is supported');
-    navigator.serviceWorker.register('{% static js/push_notifications.js %}').then(function(reg) {
+    navigator.serviceWorker.register('{% static "js/push_notifications.js" %}').then(function(reg) {
         console.log(':^)', reg);
         reg.pushManager.subscribe({
             userVisibleOnly: true
