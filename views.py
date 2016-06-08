@@ -9,6 +9,7 @@ from models import Game
 from models import Key
 from models import Faq
 from models import Email
+from models import PushSubscriber
 import stripe
 # Below secret_data.py file is not provided, you must make this yourself.
 # Put your secret and publishable Stripe keys in that file.
@@ -211,6 +212,18 @@ def faq(request):
     context = {'faq_list': faqs}
     return HttpResponse(template.render(context, request))
 
+def add_subscriber(request):
+    subscriberId = request.POST['subscriberId']
+    newSubscriber = PushSubscriber(id=subscriberId)
+    newSubscriber.save()
+    return HttpResponse('{"status": "success"}')
+
+def remove_subscriber(request):
+    subscriberId = request.POST['subscriberId']
+    currentSubscriber = PushSubscriber.objects.get(id=subscriberId)
+    currentSubscriber.delete()
+    return HttpResponse('{"status": "success"}')
+
 # Gets keys from DB.
 # drm filters by service (ex. "steam", "origin", "uplay")
 # query filters by name (ex. query="co" could return "Counter-Strike: Global Offensive" but not "Far Cry 3")
@@ -248,7 +261,7 @@ def get_game_with_keys_for_game(game):
     is_steam = False
     is_uplay = False
     is_origin = False
-    keys = Key.objects.filter(game_id=game.pk, claimed=False)
+    keys = Key.objects.filter(game_id=game.pk, claimed=False, hidden=False)
     for key in keys:
         if key.service == 'steam':
             is_steam = True
@@ -284,7 +297,7 @@ def get_first_unclaimed_key(game_with_keys, drm):
 
 # Quick convienience method that retuns list of all games from db.
 def get_games_from_db():
-    games = Game.objects.all()
+    games = Game.objects.filter()
     return games
 
 # Method to DRY out price conversions.

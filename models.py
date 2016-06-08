@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
+import datetime
 import encryption
 # Create your models here.
 
@@ -43,6 +44,8 @@ class Key(models.Model):
     game = models.ForeignKey(Game, null=False)
     service = models.CharField(max_length=10, null=False)
     claimed_by = encryption.EncryptedCharField(max_length=128, null=True, blank=True)
+    date_added = models.DateField(default=datetime.date.today, null=False)
+    hidden = models.BooleanField(default=False, null=False)
 
 # FAQ for the FAQ page
 class Faq(models.Model):
@@ -52,3 +55,6 @@ class Faq(models.Model):
 # User email for mailing list
 class Email(models.Model):
     email = models.CharField(null=False, max_length=254, unique=True)
+
+class PushSubscriber(models.Model):
+    id = models.CharField(null=False, unique=True, max_length=170)
