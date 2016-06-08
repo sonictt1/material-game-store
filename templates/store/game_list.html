@@ -203,7 +203,7 @@ function subscribe() {
     console.log('Subscribed! Endpoint:', sub.endpoint);
     subscribeButton.textContent = 'Unsubscribe';
     isSubscribed = true;
-    var subscriberId = sub.endpoint.split("/").slice(-1));
+    var subscriberId = sub.endpoint.split("/").slice(-1);
     post('/api/add_subscriber', {"subscriberId": subscriberId});
   });
 }
@@ -212,7 +212,7 @@ function unsubscribe() {
     subscribeButton.textContent = 'Subscribe';
     console.log('Unsubscribed!', event);
     isSubscribed = false;
-    var subscriberId = sub.endpoint.split("/").slice(-1));
+    var subscriberId = sub.endpoint.split("/").slice(-1);
     post('api/remove_subscriber', {"subscriberId": subscriberId})
   }).catch(function(error) {
     console.log('Error unsubscribing', error);
