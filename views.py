@@ -214,13 +214,13 @@ def faq(request):
 
 def add_subscriber(request):
     subscriberId = request.POST['subscriberId']
-    newSubscriber = PushSubscriber(id=subscriberId)
+    newSubscriber = PushSubscriber(sub_id=subscriberId)
     newSubscriber.save()
     return HttpResponse('{"status": "success"}')
 
 def remove_subscriber(request):
     subscriberId = request.POST['subscriberId']
-    currentSubscriber = PushSubscriber.objects.get(id=subscriberId)
+    currentSubscriber = PushSubscriber.objects.get(sub_id=subscriberId)
     currentSubscriber.delete()
     return HttpResponse('{"status": "success"}')
 
