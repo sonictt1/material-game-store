@@ -71,15 +71,14 @@
                       <span class="mdl-radio__label" style="color: black;">UPlay</span>
               </label>
             </form>
-{#          <li class="mdl-menu__item">Some Action</li>#}
-{#          <li class="mdl-menu__item">Another Action</li>#}
-{#          <li disabled class="mdl-menu__item">Disabled Action</li>#}
-{#          <li class="mdl-menu__item">Yet Another Action</li>#}
+            <li>
+              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" id="subscriber_slider" for="switch-2" style="margin: 5px;">
+                <input type="checkbox" id="switch-2" class="mdl-switch__input">
+                <span class="mdl-switch__label" style="color: black;">Notify</span>
+              </label>
+            </li>
+           <!-- <li class="mdl-menu__item">Some Action</li> -->
         </ul>
-{#      <nav class="mdl-navigation mdl-layout--large-screen-only">#}
-{#          <a class="material-icons md-light" href="/store/faq">info_outline</a>#}
-{#        <a class="mdl-navigation__link" href="/store/faq">Privacy Policy/FAQ</a>#}
-{#      </nav>#}
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -176,7 +175,7 @@
 var reg;
 var sub;
 var isSubscribed = false;
-var subscribeButton = document.querySelector('button');
+var subscribeButton = document.querySelector('#subsciber_slider');
 if ('serviceWorker' in navigator) {
   console.log('Service Worker is supported');
   navigator.serviceWorker.register('{% static "js/push_notifications.js" %}').then(function() {
@@ -187,7 +186,12 @@ if ('serviceWorker' in navigator) {
     console.log('Service Worker is ready :^)', reg);
   }).catch(function(error) {
     console.log('Service Worker Error :^(', error);
+    subscribeButton.checked = false;
+    subscribeButton.disabled = true;
   });
+} else {
+  subscribeButton.checked = false;
+  subscribeButton.disabled = true;
 }
 subscribeButton.addEventListener('click', function() {
   if (isSubscribed) {
@@ -201,7 +205,7 @@ function subscribe() {
   then(function(pushSubscription){
     sub = pushSubscription;
     console.log('Subscribed! Endpoint:', sub.endpoint);
-    subscribeButton.textContent = 'Unsubscribe';
+    subscribeButton.checked = true;
     isSubscribed = true;
     var subscriberId = sub.endpoint.split("/").slice(-1);
     post('/api/add_subscriber', {"subscriberId": subscriberId});
@@ -209,7 +213,7 @@ function subscribe() {
 }
 function unsubscribe() {
   sub.unsubscribe().then(function(event) {
-    subscribeButton.textContent = 'Subscribe';
+    subscribeButton.checked = false;
     console.log('Unsubscribed!', event);
     isSubscribed = false;
     var subscriberId = sub.endpoint.split("/").slice(-1);
