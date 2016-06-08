@@ -29,7 +29,7 @@ urlpatterns = [
     # FAQ page
     url(r'^faq/', views.faq, name='faq')
     # Endpoint to add push notification subscriber
-    url(r'^api/add_subscriber/', view.add_subscriber, name="add push notification subscriber")
+    url(r'^api/add_subscriber/', views.add_subscriber, name="add push notification subscriber")
     # Endpoint to remove push notification subscriber
-    url(r'^api/remove_subscriber/', view.remove_subscriber, name="remove push notification subscriber")
+    url(r'^api/remove_subscriber/', views.remove_subscriber, name="remove push notification subscriber")
 ]
