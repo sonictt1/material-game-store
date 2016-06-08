@@ -57,4 +57,4 @@ class Email(models.Model):
     email = models.CharField(null=False, max_length=254, unique=True)
 
 class PushSubscriber(models.Model):
-    id = models.CharField(null=False, unique=True, max_length=170)
+    sub_id = models.CharField(null=False, unique=True, max_length=170)
