@@ -4,6 +4,7 @@ from models import Game
 from models import Key
 from models import Faq
 from models import Email
+from models import PushSubscriber
 # Register your models here.
 
 # APACHE 2.0 LICENSE
@@ -51,3 +52,5 @@ class EmailAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Email, EmailAdmin)
+
+admin.site.register(PushSubscriber)
