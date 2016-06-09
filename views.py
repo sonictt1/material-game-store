@@ -212,7 +212,7 @@ def faq(request):
     context = {'faq_list': faqs}
     return HttpResponse(template.render(context, request))
 
-def push_notifications(request):
+def push_notifications(request, js):
     template = loader.get_template('store/push_notifications.js')
     html = template.render()
     return HttpResponse(html, content_type="applications/x-javascript")
