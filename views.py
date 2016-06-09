@@ -215,7 +215,7 @@ def faq(request):
 def push_notifications(request, js):
     template = loader.get_template('store/push_notifications.js')
     html = template.render()
-    return HttpResponse(html, content_type="applications/x-javascript")
+    return HttpResponse(html, content_type="application/x-javascript")
 
 def add_subscriber(request):
     subscriberId = request.POST['subscriberId']
