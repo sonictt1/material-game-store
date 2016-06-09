@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^api/add_subscriber/', views.add_subscriber, name="add push notification subscriber"),
     # Endpoint to remove push notification subscriber
     url(r'^api/remove_subscriber/', views.remove_subscriber, name="remove push notification subscriber")
+    url(r'^push_notifications(.*.js)$', views.push_notifications, name="push notification endpoint")
 ]

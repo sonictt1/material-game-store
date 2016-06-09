@@ -178,7 +178,7 @@ var isSubscribed = false;
 var subscribeButton = document.getElementById('subscriber_slider');
 if ('serviceWorker' in navigator) {
   console.log('Service Worker is supported');
-  navigator.serviceWorker.register('{% static "js/push_notifications.js" %}', {scope: 'tthompson.me/store/'}).then(function() {
+  navigator.serviceWorker.register('/push_notifications.js', {scope: 'tthompson.me/store/'}).then(function() {
     console.log('ServiceWorker scope: ' )
     return navigator.serviceWorker.ready;
   }).then(function(serviceWorkerRegistration) {

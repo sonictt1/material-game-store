@@ -212,6 +212,11 @@ def faq(request):
     context = {'faq_list': faqs}
     return HttpResponse(template.render(context, request))
 
+def push_notifications(request):
+    template = loader.get_template('store/push_notifications.js')
+    html = template.render()
+    return HttpResponse(html, content_type="applications/x-javascript")
+
 def add_subscriber(request):
     subscriberId = request.POST['subscriberId']
     newSubscriber = PushSubscriber(sub_id=subscriberId)
