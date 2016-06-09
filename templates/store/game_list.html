@@ -219,7 +219,7 @@ function unsubscribe() {
     console.log('Unsubscribed!', event);
     isSubscribed = false;
     var subscriberId = sub.endpoint.split("/").slice(-1);
-    post('store/api/remove_subscriber', {"subscriberId": subscriberId})
+    post('store/api/remove_subscriber', {"subscriberId": subscriberId});
   }).catch(function(error) {
     console.log('Error unsubscribing', error);
     subscribeButton.textContent = 'Subscribe';
