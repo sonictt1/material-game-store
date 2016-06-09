@@ -22,15 +22,15 @@ self.addEventListener('push', function(event) {
     var title = 'Push message';
     event.waitUntil(
       self.registration.showNotification(title, {
-        body: 'The Message',
+        body: 'New Games! Click here to go to the store.',
         // icon: 'images/icon.png',
-        tag: 'my-tag'
+        tag: 'games'
       }));
   });
   self.addEventListener('notificationclick', function(event) {
       console.log('Notification click: tag ', event.notification.tag);
       event.notification.close();
-      var url = 'https://youtu.be/gYMkEMCHtJ4';
+      var url = 'https://tthompson.me/store/';
       event.waitUntil(
           clients.matchAll({
               type: 'window'

@@ -172,10 +172,32 @@
 </div>
 
 <script>
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+var csrf_token = getCookie('csrftoken');
 var reg;
 var sub;
 var isSubscribed = false;
 var subscribeButton = document.getElementById('subscriber_slider');
+$("body").bind("ajaxSend", function(elm, xhr, s){
+   if (s.type == "POST") {
+      xhr.setRequestHeader('X-CSRF-Token', csrf_token);
+   }
+});
 if ('serviceWorker' in navigator) {
   console.log('Service Worker is supported');
   navigator.serviceWorker.register('/store/push_notifications.js').then(function() {
@@ -210,7 +232,7 @@ function subscribe() {
     subscribeButton.checked = true;
     isSubscribed = true;
     var subscriberId = sub.endpoint.split("/").slice(-1);
-    post('store/api/add_subscriber/', {"subscriberId": subscriberId});
+    post('api/add_subscriber/', {"subscriberId": subscriberId});
   });
 }
 function unsubscribe() {
@@ -219,14 +241,14 @@ function unsubscribe() {
     console.log('Unsubscribed!', event);
     isSubscribed = false;
     var subscriberId = sub.endpoint.split("/").slice(-1);
-    post('store/api/remove_subscriber/', {"subscriberId": subscriberId});
+    post('api/remove_subscriber/', {"subscriberId": subscriberId});
   }).catch(function(error) {
     console.log('Error unsubscribing', error);
     subscribeButton.textContent = 'Subscribe';
   });
 }
 function post(path, params) {
-        $.post(path, params);
+        $.get(path, params);
     };
 </script>
 </body>

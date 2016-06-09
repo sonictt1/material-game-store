@@ -218,13 +218,13 @@ def push_notifications(request, js):
     return HttpResponse(html, content_type="application/x-javascript")
 
 def add_subscriber(request):
-    subscriberId = request.POST['subscriberId']
+    subscriberId = request.GET['subscriberId[]']
     newSubscriber = PushSubscriber(sub_id=subscriberId)
     newSubscriber.save()
     return HttpResponse('{"status": "success"}')
 
 def remove_subscriber(request):
-    subscriberId = request.POST['subscriberId']
+    subscriberId = request.GET['subscriberId[]']
     currentSubscriber = PushSubscriber.objects.get(sub_id=subscriberId)
     currentSubscriber.delete()
     return HttpResponse('{"status": "success"}')
