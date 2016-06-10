@@ -245,7 +245,7 @@ function unsubscribe() {
     post('api/remove_subscriber/', {"subscriberId": subscriberId});
   }).catch(function(error) {
     console.log('Error unsubscribing', error);
-    subscribeButton.textContent = 'Subscribe';
+    subscribeButton.checked = true;
   });
 }
 function post(path, params) {
@@ -260,11 +260,11 @@ function checkSubscription(serviceWorkerRegistration) {
        subscribeButton.disabled = false;
 
        if(!subscription) {
-         subscriptButton.checked = true;
+         subscriptButton.checked = false;
          return;
        }
 
-       subscribeButton.checked = false;
+       subscribeButton.checked = true;
      })
  }
 </script>
