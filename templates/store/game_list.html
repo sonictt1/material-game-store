@@ -208,7 +208,7 @@ if ('serviceWorker' in navigator) {
     subscribeButton.disabled = false;
     console.log('Service Worker is ready :^)', reg);
     console.log('Service Worker scope: ' + reg.scope);
-    checkSubscription();
+    checkSubscription(reg);
   }).catch(function(error) {
     console.log('Service Worker Error :^(', error);
     subscribeButton.checked = false;
@@ -251,8 +251,7 @@ function unsubscribe() {
 function post(path, params) {
         $.get(path, params);
 };
-function checkSubscription() {
-  navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+function checkSubscription(serviceWorkerRegistration) {
     // Do we already have a push message subscription?
    serviceWorkerRegistration.pushManager.getSubscription()
      .then(function(subscription) {
@@ -267,7 +266,6 @@ function checkSubscription() {
 
        subscribeButton.checked = false;
      })
-   }
  }
 </script>
 </body>
