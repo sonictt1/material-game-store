@@ -1,4 +1,5 @@
 import csv
+import json
 import requests
 import secret_data
 from django.http import HttpResponse
@@ -57,11 +58,7 @@ def export_as_csv_action(description="Export selected objects as CSV file",
 
 def notify_users_new_games_action(description='Send push notification to subscribers'):
     def notify_users_new_games(modeladmin, request, queryset):
-        json_string = ''
-        for id in queryset.values_list('sub_id', flat=True):
-            json_string = json_string + '"' + id + '",'
-
-        r = requests.post('https://android.googleapis.com/gcm/send', headers = {'Authorization': 'key='+secret_data.GCM_AUTH_KEY, 'Content-Type': 'application/json'}, data={'registrations_ids': [json_string]})
-        return HttpResponse(r.text)
+        r = requests.post('https://android.googleapis.com/gcm/send', headers = {'Authorization': 'key='+secret_data.GCM_AUTH_KEY, 'Content-Type': 'application/json'}, data={'registrations_ids': json.dumps(queryset.values_list('sub_id', flat=True))})
+        return HttpResponse(r.text + '<br>' + json.dumps(queryset.values_list('sub_id', flat=True)))
     notify_users_new_games.short_description = description
     return notify_users_new_games
