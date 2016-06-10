@@ -58,8 +58,8 @@ def export_as_csv_action(description="Export selected objects as CSV file",
 def notify_users_new_games_action(description='Send push notification to subscribers'):
     def notify_users_new_games(modeladmin, request, queryset):
         json_string = ''
-        for id in queryset.objects.all():
-            json_string = json_string + '"' + id.sub_id + '",'
+        for id in queryset.values_list('sub_id'):
+            json_string = json_string + '"' + id + '",'
 
         r = requests.post('https://android.googleapis.com/gcm/send', headers = {'Authorization': 'key='+secret_data.GCM_AUTH_KEY, 'Content-Type': 'application/json'}, data={'registrations_ids': [json]})
         return request
