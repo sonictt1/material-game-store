@@ -61,7 +61,8 @@ def notify_users_new_games_action(description='Send push notification to subscri
         id_string_list = []
         for id in queryset.values_list('sub_id', flat=True):
             id_string_list.append(id)
-        r = requests.post('https://android.googleapis.com/gcm/send', headers = {'Authorization': 'key='+secret_data.GCM_AUTH_KEY, 'Content-Type': 'application/json'}, data={'registrations_ids': json.dumps(id_string_list)})
-        return HttpResponse(r.text + '<br>' + "{'registrations_ids': " + json.dumps(id_string_list)+'}')
+        json_string = '{"registration_ids: "'+json.dumps(id_string_list)+' }'
+        r = requests.post('https://android.googleapis.com/gcm/send', headers = {'Authorization': 'key='+secret_data.GCM_AUTH_KEY, 'Content-Type': 'application/json'}, data=json_string)
+        return HttpResponse(r.text + '<br>' + json_string)
     notify_users_new_games.short_description = description
     return notify_users_new_games
