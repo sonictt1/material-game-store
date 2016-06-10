@@ -261,9 +261,10 @@ function checkSubscription(serviceWorkerRegistration) {
 
        if(!subscription) {
          subscriptButton.checked = false;
+         console.log("Subscribed", subscription);
          return;
        }
-
+       console.log("Subscribed", subscription);
        subscribeButton.checked = true;
      })
  }
