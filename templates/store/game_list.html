@@ -208,7 +208,7 @@ if ('serviceWorker' in navigator) {
     subscribeButton.disabled = false;
     console.log('Service Worker is ready :^)', reg);
     console.log('Service Worker scope: ' + reg.scope);
-    // checkSubscription(reg);
+    checkSubscription(reg);
   }).catch(function(error) {
     console.log('Service Worker Error :^(', error);
     subscribeButton.checked = false;
