@@ -72,8 +72,8 @@
               </label>
             </form>
             <li>
-              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" id="subscriber_slider" for="switch-2" style="margin: 5px;">
-                <input type="checkbox" id="switch-2" class="mdl-switch__input">
+              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" id="subscriber_slider" for="toggle_notifications" style="margin: 5px;">
+                <input type="checkbox" id="toggle_notifications" class="mdl-switch__input">
                 <span class="mdl-switch__label" style="color: black;">Notify</span>
               </label>
             </li>
@@ -192,7 +192,7 @@ var csrf_token = getCookie('csrftoken');
 var reg;
 var sub;
 var isSubscribed = false;
-var subscribeButton = document.getElementById('subscriber_slider');
+var subscribeButton = document.getElementById('toggle_notifications');
 $("body").bind("ajaxSend", function(elm, xhr, s){
    if (s.type == "POST") {
       xhr.setRequestHeader('X-CSRF-Token', csrf_token);
