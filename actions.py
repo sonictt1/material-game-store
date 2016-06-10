@@ -1,4 +1,6 @@
 import csv
+import requests
+import secret_data
 from django.http import HttpResponse
 
 # APACHE 2.0 LICENSE
@@ -52,3 +54,14 @@ def export_as_csv_action(description="Export selected objects as CSV file",
         return response
     export_as_csv.short_description = description
     return export_as_csv
+
+def notify_users_new_games_action(description='Send push notification to subscribers'):
+    def notify_users_new_games(modeladmin, request, queryset):
+        json_string = ''
+        for id in queryset.objects.all():
+            json_string = json_string + '"' + id.sub_id + '",'
+
+        r = requests.post('https://android.googleapis.com/gcm/send', headers = {'Authorization': 'key='+secret_data.GCM_AUTH_KEY, 'Content-Type': 'application/json'}, data={'registrations_ids': [json]})
+        return request
+    notify_users_new_games.short_description = description
+    return notify_users_new_games

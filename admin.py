@@ -1,5 +1,6 @@
 from django.contrib import admin
 from actions import export_as_csv_action
+from actions import notify_users_new_games_action
 from models import Game
 from models import Key
 from models import Faq
@@ -36,6 +37,7 @@ admin.site.register(Game, GameAdmin)
 class KeyAdmin(admin.ModelAdmin):
     list_display = ('game', 'claimed', 'claimed_by')
 
+
 admin.site.register(Key, KeyAdmin)
 
 
@@ -53,4 +55,7 @@ class EmailAdmin(admin.ModelAdmin):
 
 admin.site.register(Email, EmailAdmin)
 
-admin.site.register(PushSubscriber)
+class PushSubscriberAdmin(admin.ModelAdmin):
+    actions = [notify_users_new_games_action()]
+
+admin.site.register(PushSubscriber, PushSubscriberAdmin)
