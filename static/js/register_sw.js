@@ -30,6 +30,7 @@ if ('serviceWorker' in navigator) {
     return navigator.serviceWorker.ready;
   }).then(function(serviceWorkerRegistration) {
     reg = serviceWorkerRegistration;
+    checkSubscription(reg);
     subscribeButton.disabled = false;
     console.log('Service Worker is ready :^)', reg);
   }).catch(function(error) {
@@ -87,4 +88,4 @@ function checkSubscription(serviceWorkerRegistration) {
        console.log("Subscribed", subscription);
        subscribeButton.checked = true;
      })
- }
+}
