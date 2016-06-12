@@ -41,6 +41,8 @@ import secret_data
 def index(request):
     email = request.GET.get('email', False)
     operation = request.GET.get('op', 'add')
+    order = request.GET.get('order', False)
+
     if email:
         if operation == 'add':
             try:
@@ -60,8 +62,15 @@ def index(request):
     template = loader.get_template('store/game_list.html')
     drm = request.GET.get('drm', None)
     query = request.GET.get('query', None)
+
+    if order == 'new':
+        games = sorted(get_games_with_keys(drm=drm, query=query, new=True))
+    else:
+        games = sorted(get_games_with_keys(drm=drm, query=query))
+
+
     context = {
-        'game_list': sorted(get_games_with_keys(drm=drm, query=query)),
+        'game_list': games,
         'drm': drm,
         'query': query,
         'email_added': email,
@@ -232,11 +241,16 @@ def remove_subscriber(request):
 # Gets keys from DB.
 # drm filters by service (ex. "steam", "origin", "uplay")
 # query filters by name (ex. query="co" could return "Counter-Strike: Global Offensive" but not "Far Cry 3")
-def get_games_with_keys(drm=None, query=None):
+def get_games_with_keys(drm=None, query=None, new=False):
     games_with_keys = list()
 
+    if new:
+        games = get_new_games_from_db()
+    else:
+        games = get_games_from_db()
+
     #TODO replace giant conditional tree with clever ORM line instead
-    for game in get_games_from_db():
+    for game in games:
         game_with_key = get_game_with_keys_for_game(game)
         if game_with_key.has_steam or game_with_key.has_origin or game_with_key.has_uplay:
             if drm is None or drm == 'all':
@@ -303,6 +317,11 @@ def get_first_unclaimed_key(game_with_keys, drm):
 # Quick convienience method that retuns list of all games from db.
 def get_games_from_db():
     games = Game.objects.filter()
+    return games
+
+def get_new_games_from_db():
+    game = Key.objects.latest('date_added')
+    games = Key.objects.filter(date_added=game.date_added)
     return games
 
 # Method to DRY out price conversions.

@@ -35,12 +35,12 @@ self.addEventListener('activate', function(event) {
 self.addEventListener('push', function(event) {
   console.log('Push message', event);
 
-  var title = 'Push message';
+  var title = 'New Games at tthompson.me';
 
   event.waitUntil(
     self.registration.showNotification(title, {
-      'body': 'The Message',
-      'icon': 'images/icon.png'
+      'body': 'Click here to see new games.',
+      // 'icon': 'images/icon.png'
     }));
 });
 
@@ -49,7 +49,7 @@ self.addEventListener('notificationclick', function(event) {
   // Android doesn't close the notification when you click it
   // See http://crbug.com/463146
   event.notification.close();
-  var url = 'https://youtu.be/gYMkEMCHtJ4';
+  var url = 'https://tthompson.me/store';
   // Check if there's already a tab open with this URL.
   // If yes: focus on the tab.
   // If no: open a tab with the URL.
