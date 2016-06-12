@@ -320,7 +320,7 @@ def get_games_from_db():
     return games
 
 def get_new_games_from_db():
-    ref_key = Key.objects.latest('date_added')
+    ref_key = Key.objects.filter(hidden=False).latest('date_added')
     keys = Key.objects.filter(date_added=ref_key.date_added)
     games = list()
 
