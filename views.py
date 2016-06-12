@@ -321,7 +321,6 @@ def get_games_from_db():
 
 def get_new_games_from_db():
     ref_key = Key.objects.latest('date_added')
-    print >>sys.stderr, ref_key.date_added
     keys = Key.objects.filter(date_added=ref_key.date_added)
     games = list()
 
