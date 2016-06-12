@@ -52,6 +52,7 @@ function subscribe() {
     console.log('Subscribed! Endpoint:', sub.endpoint);
     subscribeButton.checked = true;
     isSubscribed = true;
+    var subscriberId = sub.endpoint.split("/").slice(-1);
     $.get('/store/api/add_subscriber/', {"subscriberId": subscriberId});
   });
 }
@@ -61,6 +62,7 @@ function unsubscribe() {
     subscribeButton.textContent = 'Subscribe';
     console.log('Unsubscribed!', event);
     isSubscribed = false;
+    var subscriberId = sub.endpoint.split("/").slice(-1);
     $.get('/store/api/remove_subscriber/', {"subscriberId": subscriberId});
   }).catch(function(error) {
     console.log('Error unsubscribing', error);
