@@ -320,8 +320,13 @@ def get_games_from_db():
     return games
 
 def get_new_games_from_db():
-    game = Key.objects.latest('date_added')
-    games = Key.objects.filter(date_added=game.date_added)
+    ref_key = Key.objects.latest('date_added')
+    keys = Key.objects.filter(date_added=ref_key.date_added)
+    games = list()
+
+    for key in keys:
+        games.append(key.game)
+
     return games
 
 # Method to DRY out price conversions.
